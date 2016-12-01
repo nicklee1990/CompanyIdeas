@@ -1,0 +1,21 @@
+@import "~react-toolbox/lib/colors";
+
+.text-red, .text-fail{
+  color: $palette-red-500;
+}
+
+.text-green, .text-success{
+  color: $palette-green-500;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-left{
+  text-align: left;
+}
+
+.text-right{
+  text-align: right;
+}

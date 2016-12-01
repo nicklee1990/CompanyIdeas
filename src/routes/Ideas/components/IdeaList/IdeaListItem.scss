@@ -1,0 +1,19 @@
+@import "~react-toolbox/lib/colors";
+
+.idea{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid #f3f3f3;
+  &.open{
+    border-left: 6px solid lightgray;
+  }
+  &.done{
+    border-left: 6px solid $palette-green-500;
+  }
+  &.pending{
+    border-left: 6px solid $palette-yellow-500;
+  }
+  &.closed{
+    border-left: 6px solid $palette-red-500;
+  }
+}

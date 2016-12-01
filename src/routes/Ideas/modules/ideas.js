@@ -1,0 +1,147 @@
+const API = require('../../../utils/API').default
+import { SubmissionError } from 'redux-form'
+
+// ------------------------------------
+// Constants
+// ------------------------------------
+export const LOAD_ALL_IDEAS_REQUEST = 'LOAD_ALL_IDEAS_REQUEST'
+export const LOAD_ALL_IDEAS_SUCCESS = 'LOAD_ALL_IDEAS_SUCCESS'
+export const LOAD_ALL_IDEAS_ERROR = 'LOAD_ALL_IDEAS_ERROR'
+export const CREATE_IDEA_REQUEST = 'CREATE_IDEA_REQUEST'
+export const CREATE_IDEA_SUCCESS = 'CREATE_IDEA_SUCCESS'
+export const CREATE_IDEA_ERROR = 'CREATE_IDEA_ERROR'
+export const SHOW_ADD_IDEAS = 'SHOW_ADD_IDEAS'
+export const CLOSE_ADD_IDEAS = 'CLOSE_ADD_IDEAS'
+export const SORT_IDEAS = 'SORT_IDEAS'
+
+// ------------------------------------
+// Actions
+// ------------------------------------
+export const fetchIdeas = () => {
+  return (dispatch, getState) => {
+    dispatch(loadAllIdeasRequest())
+    return API.get('/api/ideas')
+      .then((data) => {
+        dispatch(loadIdeasSuccess(data.data))
+      }, (err) => {
+        dispatch(loadIdeasError(err))
+      })
+  }
+}
+
+export const createIdea = (values) => {
+  return (dispatch, getState) => {
+    dispatch(createIdeaRequest())
+    return API.post('/api/ideas', values)
+      .then((data) => {
+        dispatch(createIdeaSuccess(data))
+        dispatch(closeAddIdeaForm())
+      }, (err) => {
+        dispatch(createIdeaError(err))
+        throw new SubmissionError(err)
+      })
+  }
+}
+
+export function loadAllIdeasRequest () {
+  return {
+    type    : LOAD_ALL_IDEAS_REQUEST
+  }
+}
+
+export function loadIdeasSuccess (data) {
+  return {
+    type    : LOAD_ALL_IDEAS_SUCCESS,
+    ideas : data
+  }
+}
+
+export function loadIdeasError () {
+  return {
+    type    : LOAD_ALL_IDEAS_ERROR
+  }
+}
+
+export function createIdeaRequest (data) {
+  return {
+    type    : CREATE_IDEA_REQUEST,
+    idea : data
+  }
+}
+
+export function createIdeaSuccess (data) {
+  return {
+    type    : CREATE_IDEA_SUCCESS,
+    idea : data
+  }
+}
+
+export function createIdeaError (errors) {
+  return {
+    type    : CREATE_IDEA_ERROR,
+    errors
+  }
+}
+
+export function closeAddIdeaForm () {
+  return {
+    type    : CLOSE_ADD_IDEAS
+  }
+}
+
+export function showAddIdeaForm () {
+  return {
+    type    : SHOW_ADD_IDEAS
+  }
+}
+
+export function sortIdeas (sortKey) {
+  return {
+    type    : SORT_IDEAS,
+    sortKey
+  }
+}
+
+export const actions = {
+  fetchIdeas,
+  closeAddIdeaForm,
+  showAddIdeaForm,
+  sortIdeas
+}
+
+// ------------------------------------
+// Action Handlers
+// ------------------------------------
+const ACTION_HANDLERS = {
+  [LOAD_ALL_IDEAS_REQUEST] : (state, action) => { return { ...state, fetching: true } },
+  [CREATE_IDEA_REQUEST] : (state, action) => { return { ...state, creating: true } },
+  [LOAD_ALL_IDEAS_SUCCESS] : (state, action) => {
+    return {
+      ...state,
+      ideas: action.ideas,
+      fetching: false
+    }
+  },
+  [LOAD_ALL_IDEAS_ERROR] : (state, action) => { return { ...state, fetching: false } },
+  [CREATE_IDEA_SUCCESS] : (state, action) => {
+    return {
+      ...state,
+      ideas: state.ideas.concat(action.idea),
+      creating: false
+    }
+  },
+  [CREATE_IDEA_ERROR] : (state, action) => { return { ...state, creating: false } },
+  [SHOW_ADD_IDEAS] : (state, action) => { return { ...state, isAddIdeaFormShown: true } },
+  [CLOSE_ADD_IDEAS] : (state, action) => { return { ...state, isAddIdeaFormShown: false } },
+  [SORT_IDEAS] : (state, action) => { return { ...state, sortBy: action.sortKey } }
+}
+
+// ------------------------------------
+// Reducer
+// ------------------------------------
+const initialState = { isAddIdeaFormShown: false, fetching: false, creating: false, ideas: [], sortBy: 'votes' }
+export default function ideasReducer (state = initialState, action) {
+  const handler = ACTION_HANDLERS[action.type]
+
+  return handler ? handler(state, action) : state
+}
