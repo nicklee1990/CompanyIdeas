@@ -15,10 +15,10 @@ export default (store) => ({
 export default (store) => ({
   path : 'ideas',
   getChildRoutes (partialNextState, callback) {
-    require.ensure([], function (require) {
+    require.ensure([], (require) => {
       callback(null, [
-        // { path: 'create', component: require('./containers/CreateIdeaViewContainer').default },
-        { path: ':id', component: require('./containers/IdeaOverviewContainer').default }
+        // Remove imports!
+        require('./routes/Overview').default(store)
       ])
     })
   },
