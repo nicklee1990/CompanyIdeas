@@ -5,7 +5,7 @@ import Notification from '../../containers/NotificationContainer'
 export const CoreLayout = ({ children }) => (
   <div>
     <Header />
-    <div>
+    <div className="container">
       {children}
     </div>
     <Notification />

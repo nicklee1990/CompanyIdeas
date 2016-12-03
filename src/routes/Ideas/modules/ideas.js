@@ -54,7 +54,7 @@ export function loadAllIdeasRequest () {
 export function loadIdeasSuccess (data) {
   return {
     type    : LOAD_ALL_IDEAS_SUCCESS,
-    ideas : data
+    ideas   : data
   }
 }
 
@@ -67,14 +67,14 @@ export function loadIdeasError () {
 export function createIdeaRequest (data) {
   return {
     type    : CREATE_IDEA_REQUEST,
-    idea : data
+    idea    : data
   }
 }
 
 export function createIdeaSuccess (data) {
   return {
     type    : CREATE_IDEA_SUCCESS,
-    idea : data
+    idea    : data
   }
 }
 
@@ -120,7 +120,7 @@ const ACTION_HANDLERS = {
   [LOAD_ALL_IDEAS_SUCCESS] : (state, action) => {
     return {
       ...state,
-      ideas: action.ideas,
+      ideasList: action.ideas,
       fetching: false
     }
   },
@@ -128,7 +128,7 @@ const ACTION_HANDLERS = {
   [CREATE_IDEA_SUCCESS] : (state, action) => {
     return {
       ...state,
-      ideas: state.ideas.concat(action.idea),
+      ideasList: state.ideas.concat(action.idea),
       creating: false
     }
   },
@@ -141,7 +141,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { isAddIdeaFormShown: false, fetching: false, creating: false, ideas: [], sortBy: 'votes' }
+const initialState = { isAddIdeaFormShown: false, fetching: false, creating: false, ideasList: [], sortBy: 'votes' }
 export default function ideasReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

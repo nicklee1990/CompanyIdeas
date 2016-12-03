@@ -12,7 +12,7 @@ const mapDispatchToProps = {
 }
 
 const mapStateToProps = (state) => ({
-  ideas: state.ideas.ideas, // TODO: Sort by state sort key
+  ideas: state.ideas.ideasList, // TODO: Sort by state sort key
   isAddIdeaFormShown: state.ideas.isAddIdeaFormShown,
   fetching: state.ideas.fetching,
   creating: state.ideas.creating

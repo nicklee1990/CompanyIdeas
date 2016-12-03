@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Snackbar  from 'react-toolbox/lib/Snackbar'
+import Snackbar from 'react-toolbox/lib/Snackbar'
 
 export const Notification = ({ close, message, isShown }) => (
   <Snackbar

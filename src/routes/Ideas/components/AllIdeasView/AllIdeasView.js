@@ -14,7 +14,7 @@ export const AllIdeasView = (props) => {
   }
 
   return (
-    <div className="container">
+    <div>
       <Button icon="add" onClick={showForm} label="Add New Idea" flat primary />
       <Dialog
         actions={[

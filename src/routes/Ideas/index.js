@@ -16,6 +16,10 @@ export default (store) => ({
   path : 'ideas',
   getChildRoutes (partialNextState, callback) {
     require.ensure([], (require) => {
+      // TODO: Better way to do this?
+      const reducer = require('./modules/ideas').default
+      injectReducer(store, { key: 'ideas', reducer })
+
       callback(null, [
         // Remove imports!
         require('./routes/Overview').default(store)

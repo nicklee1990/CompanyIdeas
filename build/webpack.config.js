@@ -196,11 +196,11 @@ webpackConfig.module.loaders.push(
 
 // ESLint loader
 // Only enable if you want to be really harsh and fail on linting errors!
-/*if (__DEV__) {
+/* if (__DEV__) {
   webpackConfig.module.loaders.push([
     {test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/}
   ])
-}*/
+} */
 
 // ------------------------------------
 // Finalize Configuration
