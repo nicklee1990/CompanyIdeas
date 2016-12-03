@@ -1,5 +1,6 @@
 const API = require('../../../utils/API').default
 import { SubmissionError } from 'redux-form'
+import { showNotification } from '../../../store/notifications'
 
 // ------------------------------------
 // Constants
@@ -36,6 +37,7 @@ export const createIdea = (values) => {
       .then((data) => {
         dispatch(createIdeaSuccess(data))
         dispatch(closeAddIdeaForm())
+        dispatch(showNotification('Success! Your idea was submitted'))
       }, (err) => {
         dispatch(createIdeaError(err))
         throw new SubmissionError(err)
