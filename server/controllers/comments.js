@@ -32,6 +32,7 @@ exports.create = (req, res) => {
         idea.save().then((data) => {
           res.json(comment)
         }).catch((err) => {
+          console.log(err)
           res.status(400).send('There was an error saving the comment')
         })
       })

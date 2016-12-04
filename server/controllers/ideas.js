@@ -50,26 +50,26 @@ exports.upVote = (req, res) => {
   Idea.findById(req.params.id, function (err, idea) {
     if (err) {
       res.status(400).send('There was an error voting for the idea')
-    } else{
-      idea.update({$inc: {
+    } else {
+      idea.update({ $inc: {
         votes: 1
-      }});
+      } })
 
       res.send(200).send('Updated')
     }
-  });
+  })
 }
 
 exports.removeVote = (req, res) => {
   Idea.findById(req.params.id, function (err, idea) {
     if (err) {
       res.status(400).send('There was an error removing your vote the idea')
-    } else{
-      idea.update({$dec: {
+    } else {
+      idea.update({ $dec: {
         votes: 1
-      }});
+      } })
 
       res.send(200).send('Updated')
     }
-  });
+  })
 }

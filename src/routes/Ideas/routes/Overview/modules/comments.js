@@ -1,7 +1,6 @@
 const API = require('utils/API').default
-import { SubmissionError } from 'redux-form'
+import { SubmissionError, reset } from 'redux-form'
 import { showNotification } from 'store/notifications'
-import {reset} from 'redux-form';
 
 // ------------------------------------
 // Constants
@@ -31,11 +30,11 @@ export const fetchComments = (ideaId) => {
 export const addComment = (ideaId, text) => {
   return (dispatch, getState) => {
     dispatch(createCommentRequest())
-    return API.post(`/api/ideas/${ideaId}/comments`, {text})
+    return API.post(`/api/ideas/${ideaId}/comments`, { text })
       .then((data) => {
         dispatch(createCommentSuccess(ideaId, data))
         dispatch(showNotification('Success! Your comment was added'))
-        dispatch(reset('addComment'));
+        dispatch(reset('addComment'))
       }, (err) => {
         dispatch(createCommentError(err))
         throw new SubmissionError(err)
@@ -100,7 +99,7 @@ const ACTION_HANDLERS = {
   [LOAD_ALL_COMMENTS_SUCCESS] : (state, action) => {
     return {
       ...state,
-      commentsByIdeaId: {...state.commentsByIdeaId, [action.ideaId]: action.comments},
+      commentsByIdeaId: { ...state.commentsByIdeaId, [action.ideaId]: action.comments },
       fetching: false
     }
   },
@@ -108,11 +107,14 @@ const ACTION_HANDLERS = {
   [ADD_COMMENT_SUCCESS] : (state, action) => {
     return {
       ...state,
-      commentsByIdeaId:  {...state.commentsByIdeaId, [action.ideaId]: state.commentsByIdeaId[action.ideaId].concat(action.comment)},
+      commentsByIdeaId:  {
+        ...state.commentsByIdeaId,
+        [action.ideaId]: state.commentsByIdeaId[action.ideaId].concat(action.comment)
+      },
       creating: false
     }
   },
-  [ADD_COMMENT_ERROR] : (state, action) => { return { ...state, creating: false } },
+  [ADD_COMMENT_ERROR] : (state, action) => { return { ...state, creating: false } }
 }
 
 // ------------------------------------

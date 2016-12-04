@@ -7,7 +7,7 @@ const ideaSchema = new mongoose.Schema({
   image_url: String,
   comments: [Comment],
   author: String
-}, { timestamps: true });
+}, { timestamps: true })
 
 module.exports = {
   model: mongoose.model('Idea', ideaSchema),

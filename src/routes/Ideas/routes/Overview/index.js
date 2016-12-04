@@ -6,7 +6,6 @@ export default (store) => ({
 
   getIndexRoute (partialNextState, callback) {
     require.ensure([], function (require) {
-
       const reducer = require('./modules/comments').default
       injectReducer(store, { key: 'comments', reducer })
 
@@ -16,7 +15,7 @@ export default (store) => ({
     }, 'ideasOverview')
   },
 
-  onEnter(nextState) {
+  onEnter (nextState) {
     store.dispatch(fetchComments(nextState.params.id))
   }
 })

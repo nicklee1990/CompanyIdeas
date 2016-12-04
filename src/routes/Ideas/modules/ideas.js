@@ -1,7 +1,6 @@
 const API = require('utils/API').default
 import { SubmissionError } from 'redux-form'
 import { showNotification } from 'store/notifications'
-import { browserHistory } from 'react-router'
 
 // ------------------------------------
 // Constants

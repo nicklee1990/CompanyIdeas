@@ -29,11 +29,11 @@ export const AllIdeasView = (props) => {
         <CreateIdeaForm onSubmit={handleSubmit} />
       </Dialog>
       {
-        ideas.length > 0 ? <IdeaList ideas={ideas} /> :
-          <InterstitialMessage
-            image="/not_found.png"
-            message="There aren't any ideas yet. Add one!"
-          />
+        ideas.length > 0 ? <IdeaList ideas={ideas} />
+        : <InterstitialMessage
+          image="/no_results.png"
+          message="There aren't any ideas yet. Add one!"
+        />
       }
     </div>
   )
