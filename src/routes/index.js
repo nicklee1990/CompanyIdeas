@@ -1,5 +1,6 @@
 // We only need to import the modules necessary for initial render
-import CoreLayout from '../layouts/CoreLayout/CoreLayout'
+import CoreLayout from 'layouts/CoreLayout/CoreLayout'
+import NotFound from 'components/NotFound'
 import IdeasRoute from './Ideas'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -10,7 +11,11 @@ export const createRoutes = (store) => ({
   component   : CoreLayout,
   indexRoute  : { onEnter: (nextState, replace) => replace('ideas') },
   childRoutes : [
-    IdeasRoute(store)
+    IdeasRoute(store),
+    {
+      path: '*',
+      component: NotFound
+    }
   ]
 })
 

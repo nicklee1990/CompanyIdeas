@@ -1,6 +1,7 @@
-const API = require('../../../utils/API').default
+const API = require('utils/API').default
 import { SubmissionError } from 'redux-form'
-import { showNotification } from '../../../store/notifications'
+import { showNotification } from 'store/notifications'
+import { browserHistory } from 'react-router'
 
 // ------------------------------------
 // Constants
@@ -51,10 +52,10 @@ export function loadAllIdeasRequest () {
   }
 }
 
-export function loadIdeasSuccess (data) {
+export function loadIdeasSuccess (ideas) {
   return {
     type    : LOAD_ALL_IDEAS_SUCCESS,
-    ideas   : data
+    ideas
   }
 }
 
@@ -64,17 +65,17 @@ export function loadIdeasError () {
   }
 }
 
-export function createIdeaRequest (data) {
+export function createIdeaRequest (idea) {
   return {
     type    : CREATE_IDEA_REQUEST,
-    idea    : data
+    idea
   }
 }
 
-export function createIdeaSuccess (data) {
+export function createIdeaSuccess (idea) {
   return {
     type    : CREATE_IDEA_SUCCESS,
-    idea    : data
+    idea
   }
 }
 
@@ -128,7 +129,7 @@ const ACTION_HANDLERS = {
   [CREATE_IDEA_SUCCESS] : (state, action) => {
     return {
       ...state,
-      ideasList: state.ideas.concat(action.idea),
+      ideasList: state.ideasList.concat(action.idea),
       creating: false
     }
   },

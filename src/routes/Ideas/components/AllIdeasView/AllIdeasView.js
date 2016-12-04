@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { IdeaList } from '../IdeaList'
 import CreateIdeaForm from '../../forms/CreateIdeaForm'
-import InterstitialMessage from '../../../../components/InterstitialMessage'
-import LoadingMessage from '../../../../components/LoadingMessage'
+import InterstitialMessage from 'components/InterstitialMessage'
+import LoadingMessage from 'components/LoadingMessage'
 import { Button } from 'react-toolbox/lib/button'
 import Dialog from 'react-toolbox/lib/dialog'
 
@@ -29,14 +29,11 @@ export const AllIdeasView = (props) => {
         <CreateIdeaForm onSubmit={handleSubmit} />
       </Dialog>
       {
-        ideas.length > 0 && <IdeaList ideas={ideas} />
-      }
-
-      {
-        ideas.length === 0 && <InterstitialMessage
-          image="https://d13yacurqjgara.cloudfront.net/users/37530/screenshots/2485318/no-results.png"
-          message="There aren't any ideas yet. Add one!"
-        />
+        ideas.length > 0 ? <IdeaList ideas={ideas} /> :
+          <InterstitialMessage
+            image="/not_found.png"
+            message="There aren't any ideas yet. Add one!"
+          />
       }
     </div>
   )

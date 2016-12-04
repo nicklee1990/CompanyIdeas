@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import style from './CreateIdeaForm.scss'
-import { TextBox } from '../../../components/Form'
+import { TextBox } from 'components/Form'
 
 let CreateIdeaForm = (props) => (
   <form onSubmit={props.handleSubmit} className={style['create-form']}>

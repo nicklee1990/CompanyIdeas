@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers'
+import { injectReducer } from 'store/reducers'
 import { fetchIdeas } from './modules/ideas'
 
 /* Sync route definition

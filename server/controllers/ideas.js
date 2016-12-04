@@ -1,7 +1,7 @@
-const Idea = require('../models/Idea')
+const Idea = require('../models/Idea').model
 
 exports.getAll = (req, res) => {
-  Idea.find().exec().then((err, result) => res.send({ data: err }))
+  Idea.find({}, 'author name description imageUrl createdAt').exec().then((result, err) => res.send({ data: result }))
 }
 
 exports.create = (req, res) => {
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
         description: req.body.description,
         status: 'open',
         votes: 0,
-        author: 'Nicholas Lee' /*TODO: Get logged in user*/
+        author: 'Nicholas Lee' /* TODO: Get logged in user */
         // TODO: Add current author image
       })
 
@@ -43,4 +43,33 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   res.send(req.query)
+}
+
+// TODO: Ensure the user is assigned
+exports.upVote = (req, res) => {
+  Idea.findById(req.params.id, function (err, idea) {
+    if (err) {
+      res.status(400).send('There was an error voting for the idea')
+    } else{
+      idea.update({$inc: {
+        votes: 1
+      }});
+
+      res.send(200).send('Updated')
+    }
+  });
+}
+
+exports.removeVote = (req, res) => {
+  Idea.findById(req.params.id, function (err, idea) {
+    if (err) {
+      res.status(400).send('There was an error removing your vote the idea')
+    } else{
+      idea.update({$dec: {
+        votes: 1
+      }});
+
+      res.send(200).send('Updated')
+    }
+  });
 }
