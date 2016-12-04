@@ -9,6 +9,8 @@ let AddCommentForm = (props) => (
   </form>
 )
 
+/*
+Note: We can just validate server side here so this is not required
 const validate = values => {
   const errors = {}
   if (!values.text) {
@@ -18,11 +20,11 @@ const validate = values => {
   }
   return errors
 }
+*/
 
 // Decorate the form component
 AddCommentForm = reduxForm({
-  form: 'addComment',
-  validate
+  form: 'addComment'
 })(AddCommentForm)
 
 AddCommentForm.propTypes = {
