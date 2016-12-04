@@ -3,7 +3,7 @@ import Comment from './Comment'
 import { List } from 'react-toolbox/lib/list'
 
 let CommentList = (props) => (
-  <List selectable ripple>
+  <List selectable={false} ripple={false}>
     {
       props.comments.map((comment, index) => <Comment
         key={index}

@@ -12,6 +12,8 @@ let Comment = (props) => {
         caption={text}
         className={style.comment}
         legend={`by ${author}`}
+        selectable={false}
+        ripple={false}
       />
     </div>
   )
