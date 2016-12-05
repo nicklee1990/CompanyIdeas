@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const voteSchema = new mongoose.Schema({
   count: Number,
-  ideaId: mongoose.Schema.ObjectId,
-  userId: mongoose.Schema.ObjectId
+  idea: { type: Number, ref: 'Idea' },
+  user: { type: Number, ref: 'User' }
 }, { timestamps: true })
 
 module.exports = {
