@@ -2,6 +2,19 @@
   font-size: 2rem;
 }
 
+.author{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  .author_name{
+    margin-left: 5px;
+  }
+}
+
+.vote_button{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .comments_section{
   margin-top: 100px;
   h5{

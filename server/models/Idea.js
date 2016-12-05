@@ -6,7 +6,8 @@ const ideaSchema = new mongoose.Schema({
   description: String,
   image_url: String,
   comments: [Comment],
-  author: String
+  author: String,
+  votes: Number
 }, { timestamps: true })
 
 module.exports = {

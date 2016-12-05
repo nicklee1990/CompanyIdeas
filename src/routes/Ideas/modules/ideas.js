@@ -14,6 +14,8 @@ export const CREATE_IDEA_ERROR = 'CREATE_IDEA_ERROR'
 export const SHOW_ADD_IDEAS = 'SHOW_ADD_IDEAS'
 export const CLOSE_ADD_IDEAS = 'CLOSE_ADD_IDEAS'
 export const SORT_IDEAS = 'SORT_IDEAS'
+export const ADD_VOTE_SUCCESS = 'ADD_VOTE_SUCCESS'
+export const ADD_VOTE_FAIL = 'ADD_VOTE_FAIL'
 
 // ------------------------------------
 // Actions
@@ -41,6 +43,17 @@ export const createIdea = (values) => {
       }, (err) => {
         dispatch(createIdeaError(err))
         throw new SubmissionError(err)
+      })
+  }
+}
+
+export const addVote = (id) => {
+  return (dispatch, getState) => {
+    return API.post(`/api/ideas/${id}/vote`)
+      .then((data) => {
+        dispatch(addVoteSuccess(id))
+      }, (err) => {
+        dispatch(addVoteError(err))
       })
   }
 }
@@ -104,11 +117,29 @@ export function sortIdeas (sortKey) {
   }
 }
 
+export function addVoteSuccess (ideaId, userId) {
+  return {
+    type    : ADD_VOTE_SUCCESS,
+    ideaId,
+    userId
+  }
+}
+
+export function addVoteError (error) {
+  return {
+    type    : ADD_VOTE_FAIL,
+    error
+  }
+}
+
 export const actions = {
   fetchIdeas,
   closeAddIdeaForm,
   showAddIdeaForm,
-  sortIdeas
+  sortIdeas,
+  addVote,
+  addVoteSuccess,
+  createIdeaSuccess
 }
 
 // ------------------------------------
@@ -135,7 +166,16 @@ const ACTION_HANDLERS = {
   [CREATE_IDEA_ERROR] : (state, action) => { return { ...state, creating: false } },
   [SHOW_ADD_IDEAS] : (state, action) => { return { ...state, isAddIdeaFormShown: true } },
   [CLOSE_ADD_IDEAS] : (state, action) => { return { ...state, isAddIdeaFormShown: false } },
-  [SORT_IDEAS] : (state, action) => { return { ...state, sortBy: action.sortKey } }
+  [SORT_IDEAS] : (state, action) => { return { ...state, sortBy: action.sortKey } },
+  [ADD_VOTE_SUCCESS] : (state, action) => {
+    const ideaIndex = state.ideasList.findIndex((item) => item._id == action.ideaId);
+    let newIdeasList = state.ideasList;
+    newIdeasList[ideaIndex].votes += 1
+
+    return {
+      ...state,
+      ideaList: newIdeasList
+  }}
 }
 
 // ------------------------------------

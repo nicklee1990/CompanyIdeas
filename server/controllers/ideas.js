@@ -1,7 +1,7 @@
 const Idea = require('../models/Idea').model
 
 exports.getAll = (req, res) => {
-  Idea.find({}, 'author name description imageUrl createdAt').exec().then((result, err) => res.send({ data: result }))
+  Idea.find({}, 'author name description imageUrl createdAt votes').exec().then((result, err) => res.send({ data: result }))
 }
 
 exports.create = (req, res) => {
@@ -47,29 +47,13 @@ exports.delete = (req, res) => {
 
 // TODO: Ensure the user is assigned
 exports.upVote = (req, res) => {
-  Idea.findById(req.params.id, function (err, idea) {
-    if (err) {
-      res.status(400).send('There was an error voting for the idea')
-    } else {
-      idea.update({ $inc: {
-        votes: 1
-      } })
-
-      res.send(200).send('Updated')
-    }
-  })
-}
-
-exports.removeVote = (req, res) => {
-  Idea.findById(req.params.id, function (err, idea) {
-    if (err) {
-      res.status(400).send('There was an error removing your vote the idea')
-    } else {
-      idea.update({ $dec: {
-        votes: 1
-      } })
-
-      res.send(200).send('Updated')
-    }
-  })
+  Idea.findOneAndUpdate({ _id: req.params.id }, { $inc: { votes: 1 }})
+    .exec(function(err, data) {
+      if (err) {
+        res.status(400).send('There was an error voting for the idea')
+      }
+      else {
+        res.status(200).send(data);
+      }
+    });
 }

@@ -6,7 +6,6 @@ module.exports = (app) => {
   app.get('/api/ideas', ideasController.getAll)
   app.post('/api/ideas', ideasController.create)
   app.post('/api/ideas/:id/vote', ideasController.upVote)
-  app.delete('/api/ideas/:id/vote', ideasController.removeVote)
   app.patch('/api/ideas/:id', ideasController.update)
   app.delete('/api/ideas/:id', ideasController.delete)
 

@@ -87,7 +87,8 @@ export function createCommentError (errors) {
 
 export const actions = {
   fetchComments,
-  addComment
+  addComment,
+  createCommentSuccess
 }
 
 // ------------------------------------

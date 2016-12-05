@@ -10,10 +10,10 @@ let IdeaListItem = (props) => {
     <RouterLink to={`ideas/${id}`}>
       <ListItem
         avatar={imageUrl || 'https://help.github.com/assets/images/help/profile/identicon.png'}
-        caption={<span><strong>{name}</strong> <small>suggested by {author}</small></span>}
-        legend={`${votes} votes`}
+        caption={name}
+        legend={`suggested by ${author}`}
         className={`${style.idea} ${style[status]}`}
-        rightIcon="star"
+        rightIcon={<span>{votes} votes</span>}
       />
     </RouterLink>
   )
@@ -25,7 +25,7 @@ IdeaListItem.propTypes = {
   description: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,
   author: PropTypes.string.isRequired,
-  votes: PropTypes.string.isRequired,
+  votes: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired
 }
 
