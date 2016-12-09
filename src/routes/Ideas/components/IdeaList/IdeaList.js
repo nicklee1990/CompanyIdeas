@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react'
-import IdeaListItem from './IdeaListItem'
-import { List, ListSubHeader } from 'react-toolbox/lib/list'
+import IdeaListItem from '../../containers/IdeaListItemContainer'
 
 let IdeaList = (props) => (
-  <List selectable ripple>
-    <ListSubHeader caption="Popular Ideas" />
+  <div>
     {
       props.ideas.map((idea, index) => <IdeaListItem
         key={index}
@@ -17,7 +15,7 @@ let IdeaList = (props) => (
         votes={idea.votes}
       />)
     }
-  </List>
+  </div>
 )
 
 IdeaList.propTypes = {

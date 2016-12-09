@@ -1,22 +1,21 @@
-.description{
-  font-size: 2rem;
+.overview_container{
+  margin-top: 10px;
 }
 
-.author{
-  margin-top: 5px;
-  margin-bottom: 10px;
-  .author_name{
-    margin-left: 5px;
+.card{
+  width: 100%;
+  .header{
+    background: #6659b2;
+    h5{
+      color: white;
+    }
+    p{
+      color: #cbcbcb;
+    }
   }
 }
 
-.vote_button{
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
 .comments_section{
-  margin-top: 100px;
   h5{
     line-height: 2rem;
     span{

@@ -1,8 +1,18 @@
 @import "~react-toolbox/lib/colors";
 
 .idea{
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 10px;
+  width: 100%;
+  @media(min-width: 992px){
+    width: 33%;
+    &:nth-child(3n+1){
+      padding-left: 0;
+    }
+    &:nth-child(3n){
+      padding-right: 0;
+    }
+  }
+  float: left;
   border: 1px solid #f3f3f3;
   &.open{
     border-left: 6px solid lightgray;
@@ -15,5 +25,18 @@
   }
   &.closed{
     border-left: 6px solid $palette-red-500;
+  }
+}
+
+.card{
+  width: 100%;
+  .header{
+    background: #6659b2;
+    h5{
+      color: white;
+    }
+    p{
+      color: #cbcbcb;
+    }
   }
 }

@@ -7,7 +7,7 @@ const ideaSchema = new mongoose.Schema({
   image_url: String,
   comments: [Comment],
   author: String,
-  votes : [{ type: Schema.Types.ObjectId, ref: 'Vote' }]
+  votes : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vote' }]
 }, { timestamps: true })
 
 module.exports = {

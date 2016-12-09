@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react'
-import Subheader from 'components/Subheader'
 import InterstitialMessage from 'components/InterstitialMessage'
 import LoadingMessage from 'components/LoadingMessage'
 import { Button } from 'react-toolbox/lib/button'
 import { FontIcon } from 'react-toolbox/lib/font_icon'
-import { Avatar } from 'react-toolbox/lib/avatar'
 import { browserHistory } from 'react-router'
 import style from './IdeaOverview.scss'
 import { CommentList } from '../CommentList'
 import AddCommentForm from '../../forms/AddCommentForm'
+import { Card, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card'
+import { IconButton } from 'react-toolbox/lib/button'
 
 export const IdeaOverview = ({ idea, isLoading, isLoadingComments, comments, handleSubmit, addVote }) => {
   let commentSection
@@ -34,33 +34,35 @@ export const IdeaOverview = ({ idea, isLoading, isLoadingComments, comments, han
   return (
     <div>
       <Button icon="arrow_back" onClick={() => browserHistory.push('/ideas')} label="Back" flat primary />
+      <div className={style.overview_container}>
       {
         isLoading ? <LoadingMessage message="Loading idea..." />
           : <div>
-            <Subheader text={`${idea.name}`} size="large" />
-            <h6 className={style.author}>
-              <Avatar>
-                <img src="https://help.github.com/assets/images/help/profile/identicon.png" />
-              </Avatar>
-              <span className={style.author_name}>by {idea.author}</span>
-            </h6>
-            <p className={style.description}>{idea.description}</p>
-            <div className={style.comments_section}>
-              <div className={style.vote_button}>
-                <Button
-                  icon="thumb_up"
-                  onClick={addVote}
-                  label="Vote for this Idea"
-                  raised
-                  primary
-                />
+          <Card className={style.card}>
+            <CardTitle
+              avatar={idea.imageUrl || 'https://help.github.com/assets/images/help/profile/identicon.png'}
+              title={idea.author}
+              subtitle={`submitted 3 days ago`}
+              className={style.header}
+            />
+            <CardTitle
+              title={idea.name}
+            />
+            <CardText>{idea.description}</CardText>
+            <CardActions>
+              <IconButton icon='favorite' accent onClick={() => addVote()} /> {idea.votes.length}
+            </CardActions>
+            <CardText>
+              <div className={style.comments_section}>
+                <h5 className="text-primary"><FontIcon className="icon" value="comment" /><span> Comments</span></h5>
+                <AddCommentForm onSubmit={handleSubmit} />
+                {commentSection}
               </div>
-              <h5 className="text-primary"><FontIcon className="icon" value="comment" /><span> Comments</span></h5>
-              <AddCommentForm onSubmit={handleSubmit} />
-              {commentSection}
-            </div>
+            </CardText>
+          </Card>
           </div>
       }
+    </div>
     </div>
   )
 }

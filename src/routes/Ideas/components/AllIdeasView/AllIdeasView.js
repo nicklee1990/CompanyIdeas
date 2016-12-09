@@ -5,6 +5,7 @@ import InterstitialMessage from 'components/InterstitialMessage'
 import LoadingMessage from 'components/LoadingMessage'
 import { Button } from 'react-toolbox/lib/button'
 import Dialog from 'react-toolbox/lib/dialog'
+import Subheader from 'components/Subheader'
 
 export const AllIdeasView = (props) => {
   const { ideas, showForm, closeForm, isAddIdeaFormShown,
@@ -15,6 +16,7 @@ export const AllIdeasView = (props) => {
 
   return (
     <div>
+      <Subheader text="The Ideas Board" size="large" />
       <Button icon="add" onClick={showForm} label="Add New Idea" flat primary />
       <Dialog
         actions={[

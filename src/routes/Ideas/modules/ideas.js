@@ -175,7 +175,10 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       ideaList: newIdeasList
-  }}
+  }},
+  [ADD_VOTE_FAIL] : (state, action) => {
+    return state
+  }
 }
 
 // ------------------------------------
