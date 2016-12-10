@@ -10,7 +10,6 @@ let IdeaListItem = (props) => {
   return (
     <div className={style.idea}>
       <Card className={style.card}>
-
         <RouterLink to={`ideas/${id}`}>
           <CardTitle
             avatar={imageUrl || 'https://help.github.com/assets/images/help/profile/identicon.png'}
@@ -20,7 +19,8 @@ let IdeaListItem = (props) => {
           />
           <CardTitle
             title={name}
-            subtitle={description}
+            subtitle={description.length > 70 ? `${description.substring(0,70)}...` : description}
+            className={style.details}
           />
         </RouterLink>
         <CardActions>

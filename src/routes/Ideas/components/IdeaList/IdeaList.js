@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
 import IdeaListItem from '../../containers/IdeaListItemContainer'
+import style from './IdeaList.scss'
 
 let IdeaList = (props) => (
-  <div>
+  <div className={style.idea_list}>
     {
       props.ideas.map((idea, index) => <IdeaListItem
         key={index}
