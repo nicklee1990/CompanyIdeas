@@ -14,6 +14,7 @@ let IdeaList = (props) => (
         author={idea.author}
         status={idea.status}
         votes={idea.votes}
+        createdAt={idea.createdAt}
       />)
     }
   </div>

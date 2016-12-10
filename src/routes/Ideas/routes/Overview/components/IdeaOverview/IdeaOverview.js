@@ -9,6 +9,7 @@ import { CommentList } from '../CommentList'
 import AddCommentForm from '../../forms/AddCommentForm'
 import { Card, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card'
 import { IconButton } from 'react-toolbox/lib/button'
+import moment from 'moment'
 
 export const IdeaOverview = ({ idea, isLoading, isLoadingComments, comments, handleSubmit, addVote }) => {
   let commentSection
@@ -42,7 +43,7 @@ export const IdeaOverview = ({ idea, isLoading, isLoadingComments, comments, han
             <CardTitle
               avatar={idea.imageUrl || 'https://help.github.com/assets/images/help/profile/identicon.png'}
               title={idea.author}
-              subtitle={`submitted 3 days ago`}
+              subtitle={`submitted ${moment(idea.createdAt).fromNow()}`}
               className={style.header}
             />
             <CardTitle
@@ -50,7 +51,7 @@ export const IdeaOverview = ({ idea, isLoading, isLoadingComments, comments, han
             />
             <CardText>{idea.description}</CardText>
             <CardActions>
-              <IconButton icon='favorite' accent onClick={() => addVote()} /> {idea.votes.length}
+              <IconButton icon='favorite' accent onClick={() => addVote()} />{idea.votes.length}
             </CardActions>
             <CardText>
               <div className={style.comments_section}>

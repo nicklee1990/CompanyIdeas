@@ -151,15 +151,20 @@ const ACTION_HANDLERS = {
   [LOAD_ALL_IDEAS_SUCCESS] : (state, action) => {
     return {
       ...state,
-      ideasList: action.ideas,
+      ideasList: action.ideas.map((idea) => {
+        idea.createdAt = new Date(idea.createdAt);
+        return idea
+      }),
       fetching: false
     }
   },
   [LOAD_ALL_IDEAS_ERROR] : (state, action) => { return { ...state, fetching: false } },
   [CREATE_IDEA_SUCCESS] : (state, action) => {
+    let idea = action.idea;
+    idea.createdAt = new Date(idea.createdAt);
     return {
       ...state,
-      ideasList: state.ideasList.concat(action.idea),
+      ideasList: state.ideasList.concat(idea),
       creating: false
     }
   },

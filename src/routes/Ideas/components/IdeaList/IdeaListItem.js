@@ -3,9 +3,10 @@ import { Link as RouterLink } from 'react-router'
 import { Card, CardTitle, CardActions } from 'react-toolbox/lib/card'
 import { IconButton } from 'react-toolbox/lib/button'
 import style from './IdeaListItem.scss'
+import moment from 'moment'
 
 let IdeaListItem = (props) => {
-  const { name, imageUrl, author, id, votes, description, addVote } = props
+  const { name, imageUrl, author, id, votes, description, addVote, createdAt } = props
 
   return (
     <div className={style.idea}>
@@ -14,7 +15,7 @@ let IdeaListItem = (props) => {
           <CardTitle
             avatar={imageUrl || 'https://help.github.com/assets/images/help/profile/identicon.png'}
             title={author}
-            subtitle={`submitted 3 days ago`}
+            subtitle={`submitted ${moment(createdAt).fromNow()}`}
             className={style.header}
           />
           <CardTitle
@@ -24,9 +25,9 @@ let IdeaListItem = (props) => {
           />
         </RouterLink>
         <CardActions>
-          <IconButton icon='favorite' accent onClick={() => addVote(id)} /> {votes.length}
+          <IconButton icon='favorite' accent onClick={() => addVote(id)} />{votes.length}
           <RouterLink to={`ideas/${id}`}>
-            <IconButton icon='comment'  /> 23
+            <IconButton icon='comment'  />23
           </RouterLink>
         </CardActions>
       </Card>
@@ -42,7 +43,8 @@ IdeaListItem.propTypes = {
   author: PropTypes.string.isRequired,
   votes: PropTypes.array.isRequired,
   status: PropTypes.string.isRequired,
-  addVote: PropTypes.func.isRequired
+  addVote: PropTypes.func.isRequired,
+  createdAt: PropTypes.instanceOf(Date).isRequired
 }
 
 IdeaListItem.defaultProps = {

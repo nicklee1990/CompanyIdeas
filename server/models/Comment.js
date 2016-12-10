@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const commentSchema = new mongoose.Schema({
-  text: String,
-  author: { type: Number, ref: 'User' }
+  text: String
+  //author: { type: Number, ref: 'User' }
 }, { timestamps: true })
 
 module.exports = {

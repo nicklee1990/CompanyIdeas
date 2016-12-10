@@ -1,7 +1,7 @@
 const Idea = require('../models/Idea').model
 
 exports.getAll = (req, res) => {
-  Idea.find({}, 'author name description imageUrl createdAt votes').exec().then((result, err) => res.send({ data: result }))
+  Idea.find({}, 'author name description createdAt votes').exec().then((result, err) => res.send({ data: result }))
 }
 
 exports.create = (req, res) => {
@@ -21,8 +21,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         description: req.body.description,
         status: 'open',
-        votes: 0,
-        author: 'Nicholas Lee' /* TODO: Get logged in user */
+        author: 'Nicholas Lee' /* TODO: Match with */
         // TODO: Add current author image
       })
 
@@ -47,7 +46,7 @@ exports.delete = (req, res) => {
 
 // TODO: Ensure the user is assigned
 exports.upVote = (req, res) => {
-  Idea.findOneAndUpdate({ _id: req.params.id }, { $inc: { votes: 1 }})
+  Idea.findOneAndUpdate({ _id: req.params.id }, {})
     .exec(function(err, data) {
       if (err) {
         res.status(400).send('There was an error voting for the idea')
