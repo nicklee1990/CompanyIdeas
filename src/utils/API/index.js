@@ -1,10 +1,11 @@
 const request = require('superagent')
 
 export default {
-  get: (url) => {
+  get: (url, params) => {
     return new Promise((resolve, reject) => {
       request
         .get(url)
+        .query(params || {})
         .end(function (err, res) {
           if (err || !res.ok) {
             reject()

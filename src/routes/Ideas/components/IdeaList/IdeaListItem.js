@@ -6,7 +6,7 @@ import style from './IdeaListItem.scss'
 import moment from 'moment'
 
 let IdeaListItem = (props) => {
-  const { name, imageUrl, author, id, votes, description, addVote, createdAt } = props
+  const { name, imageUrl, author, id, votes, description, addVote, createdAt, comments } = props
 
   return (
     <div className={style.idea}>
@@ -20,14 +20,14 @@ let IdeaListItem = (props) => {
           />
           <CardTitle
             title={name}
-            subtitle={description.length > 70 ? `${description.substring(0,70)}...` : description}
+            subtitle={description.length > 70 ? `${description.substring(0, 70)}...` : description}
             className={style.details}
           />
         </RouterLink>
         <CardActions>
-          <IconButton icon='favorite' accent onClick={() => addVote(id)} />{votes.length}
+          <IconButton icon="favorite_border" accent onClick={() => addVote(id)} />{votes.length}
           <RouterLink to={`ideas/${id}`}>
-            <IconButton icon='comment'  />23
+            <IconButton icon="chat_bubble_outline" />{comments.length}
           </RouterLink>
         </CardActions>
       </Card>
@@ -42,6 +42,7 @@ IdeaListItem.propTypes = {
   imageUrl: PropTypes.string,
   author: PropTypes.string.isRequired,
   votes: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
   status: PropTypes.string.isRequired,
   addVote: PropTypes.func.isRequired,
   createdAt: PropTypes.instanceOf(Date).isRequired
@@ -49,6 +50,7 @@ IdeaListItem.propTypes = {
 
 IdeaListItem.defaultProps = {
   votes: [],
+  comments: [],
   status: 'open'
 }
 
