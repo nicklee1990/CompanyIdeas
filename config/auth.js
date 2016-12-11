@@ -4,4 +4,4 @@ module.exports = {
     clientSecret  : process.env.GOOGLE_SECRET,
     callbackURL   : process.env.GOOGLE_CALLBACK
   }
-};
+}

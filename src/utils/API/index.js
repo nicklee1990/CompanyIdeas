@@ -5,10 +5,12 @@ export default {
     return new Promise((resolve, reject) => {
       request
         .get(url)
+        .set('Accept', 'application/json')
+        .set('Content-Type: application/json')
         .query(params || {})
         .end(function (err, res) {
           if (err || !res.ok) {
-            reject()
+            reject(res.body)
           } else {
             resolve(res.body)
           }
@@ -20,6 +22,7 @@ export default {
       request
         .post(url)
         .set('Accept', 'application/json')
+        .set('Content-Type: application/json')
         .send(payload)
         .end(function (err, res) {
           if (err || !res.ok) {

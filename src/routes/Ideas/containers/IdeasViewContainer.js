@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
     return b.createdAt - a.createdAt
   }),
   isAddIdeaFormShown: state.ideas.isAddIdeaFormShown,
-  showLoadMore: !state.ideas.allPagesLoaded,
+  showLoadMore: !state.ideas.allPagesLoaded && state.ideas.ideasList.length > 0,
   fetching: state.ideas.fetching,
   creating: state.ideas.creating
 })

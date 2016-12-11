@@ -1,7 +1,6 @@
-const
-  mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  Comment = require('./Comment').schema
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const Comment = require('./Comment').schema
 
 const ideaSchema = new Schema({
   name: String,

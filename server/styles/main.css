@@ -1,0 +1,56 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo{
+    display: block;
+    margin: 30px auto;
+    width: 175px;
+}
+
+.btn-full-width{
+    width: 100%;
+    display: block;
+}
+
+.img-responsive{
+    max-width: 100%;
+}
+
+.text-center{
+    text-align: center;
+}
+
+html,
+body{
+    background: #F4F6F9;
+}
+
+.auth-panel{
+    margin: auto;
+    max-width: 100%;
+    width: 450px;
+    background: white;
+}
+
+html,
+body,
+.mui-container-fluid,
+.mui-row,
+.mui-row > div{
+    height: 100%;
+}
+
+.mui-row > div {
+    padding-top: 100px;
+}
+
+.mui-row > div:nth-child(2) {
+    background: url(https://camo.githubusercontent.com/cedae954f41af3de0c9d3b8ae65f693e441c8430/68747470733a2f2f6c68362e676f6f676c6575736572636f6e74656e742e636f6d2f2d74767761626857415032552f55737a734e6177306b56492f41414141414141414953302f453352624e36626c3657412f73323536302f43432532422d25324253616e74612532424372757a2532424e61747572616c253242427269646765732e6a7067) center;
+    background-size: cover;
+}
+
+footer{
+    position: relative;
+    margin-top: 15px;
+}

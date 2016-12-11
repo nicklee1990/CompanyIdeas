@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  div.mui-panel.auth-panel
+    legend Intranet Sign In
+    form(method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .mui-textfield
+        label(for='email') Email
+        input(type='email', name='email', id='email', placeholder='Email', autofocus, required)
+      .mui-textfield
+        label(for='password') Password
+        input(type='password', name='password', id='password', placeholder='Password', required)
+      div
+        button.mui-btn.mui-btn--raised.mui-btn--primary.btn-full-width(type='submit') Login
+      div
+        a.mui-btn(href='/register').btn-full-width Register

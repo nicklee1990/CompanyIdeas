@@ -38,6 +38,7 @@ export const fetchIdeas = () => {
       }
     }, (err) => {
       dispatch(loadIdeasError(err))
+      dispatch(showNotification('Error! Something went wrong loading ideas'))
     })
   }
 }
@@ -52,7 +53,11 @@ export const createIdea = (values) => {
         dispatch(showNotification('Success! Your idea was submitted'))
       }, (err) => {
         dispatch(createIdeaError(err))
-        throw new SubmissionError(err)
+        if (err === null) {
+          dispatch(showNotification('Error! Something went wrong adding your idea'))
+        } else {
+          throw new SubmissionError(err)
+        }
       })
   }
 }
@@ -64,6 +69,7 @@ export const addVote = (id) => {
         dispatch(addVoteSuccess(id))
       }, (err) => {
         dispatch(addVoteError(err))
+        dispatch(showNotification('Error! Something went wrong adding your vote'))
       })
   }
 }

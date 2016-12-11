@@ -1,7 +1,6 @@
-const
-  mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  passportLocalMongoose = require('passport-local-mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const userSchema = new Schema({
   name: String,
@@ -9,7 +8,7 @@ const userSchema = new Schema({
   votes : [{ type: Schema.Types.ObjectId, ref: 'Vote' }]
 }, { timestamps: true })
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose)
 
 module.exports = {
   model: mongoose.model('User', userSchema),
