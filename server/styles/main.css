@@ -71,6 +71,7 @@ body,
     display: block;
     margin: 30px auto;
     width: 175px;
+    max-height: 60px;
 }
 
 .auth-panel{
@@ -92,7 +93,7 @@ body,
 }
 
 .picture-title{
-    font-size: 22px;
+    font-size: 24px;
 }
 
 .picture-author{
