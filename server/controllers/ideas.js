@@ -1,7 +1,16 @@
 const Idea = require('../models/Idea').model
 
 exports.getAll = (req, res) => {
-  Idea.find({}, 'author name description createdAt votes').exec().then((result, err) => res.send({ data: result }))
+  const perPage = req.query.perPage ? parseInt(req.query.perPage) : 6
+  const currentPage = req.query.currentPage ? parseInt(req.query.currentPage) : 0
+
+  Idea
+    .find({}, 'author name description createdAt votes comments')
+    .sort({ 'createdAt': -1 })
+    .skip(perPage * currentPage)
+    .limit(perPage)
+    .exec()
+    .then((result, err) => res.send({ data: result }))
 }
 
 exports.create = (req, res) => {
@@ -47,12 +56,11 @@ exports.delete = (req, res) => {
 // TODO: Ensure the user is assigned
 exports.upVote = (req, res) => {
   Idea.findOneAndUpdate({ _id: req.params.id }, {})
-    .exec(function(err, data) {
+    .exec(function (err, data) {
       if (err) {
         res.status(400).send('There was an error voting for the idea')
+      } else {
+        res.status(200).send(data)
       }
-      else {
-        res.status(200).send(data);
-      }
-    });
+    })
 }

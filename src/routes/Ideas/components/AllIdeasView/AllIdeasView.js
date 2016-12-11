@@ -9,8 +9,8 @@ import Subheader from 'components/Subheader'
 
 export const AllIdeasView = (props) => {
   const { ideas, showForm, closeForm, isAddIdeaFormShown,
-    fetching, creating, performSubmit, handleSubmit } = props
-  if (fetching) {
+    fetching, creating, performSubmit, handleSubmit, loadMore, showLoadMore } = props
+  if (fetching && ideas.length === 0) {
     return <LoadingMessage message="Loading ideas..." />
   }
 
@@ -37,6 +37,12 @@ export const AllIdeasView = (props) => {
           message="There aren't any ideas yet. Add one!"
         />
       }
+      {
+        showLoadMore &&
+        <div className="text-center">
+          <Button onClick={loadMore} label="Load More" raised primary />
+        </div>
+      }
     </div>
   )
 }
@@ -46,8 +52,10 @@ AllIdeasView.propTypes = {
   isAddIdeaFormShown: PropTypes.bool.isRequired,
   fetching: PropTypes.bool.isRequired,
   creating: PropTypes.bool.isRequired,
+  showLoadMore: PropTypes.bool.isRequired,
   showForm: PropTypes.func.isRequired,
   closeForm: PropTypes.func.isRequired,
+  loadMore: PropTypes.func.isRequired,
   performSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 }

@@ -1,11 +1,16 @@
 @import "~react-toolbox/lib/colors";
 
 .idea{
-  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  @media(min-width: 768px){
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   @media(min-width: 768px) and (max-width: 992px){
     width: 50%;
     &:nth-child(2n+1){

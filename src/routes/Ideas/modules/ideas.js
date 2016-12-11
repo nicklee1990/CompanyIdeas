@@ -5,9 +5,10 @@ import { showNotification } from 'store/notifications'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOAD_ALL_IDEAS_REQUEST = 'LOAD_ALL_IDEAS_REQUEST'
+export const LOAD_IDEAS_REQUEST = 'LOAD_IDEAS_REQUEST'
 export const LOAD_ALL_IDEAS_SUCCESS = 'LOAD_ALL_IDEAS_SUCCESS'
 export const LOAD_ALL_IDEAS_ERROR = 'LOAD_ALL_IDEAS_ERROR'
+export const ALL_PAGES_LOADED = 'ALL_PAGES_LOADED'
 export const CREATE_IDEA_REQUEST = 'CREATE_IDEA_REQUEST'
 export const CREATE_IDEA_SUCCESS = 'CREATE_IDEA_SUCCESS'
 export const CREATE_IDEA_ERROR = 'CREATE_IDEA_ERROR'
@@ -22,13 +23,22 @@ export const ADD_VOTE_FAIL = 'ADD_VOTE_FAIL'
 // ------------------------------------
 export const fetchIdeas = () => {
   return (dispatch, getState) => {
+    const state = getState()
+    const perPage = state.ideas.perPage
     dispatch(loadAllIdeasRequest())
-    return API.get('/api/ideas')
-      .then((data) => {
-        dispatch(loadIdeasSuccess(data.data))
-      }, (err) => {
-        dispatch(loadIdeasError(err))
-      })
+    return API.get('/api/ideas', {
+      perPage: perPage,
+      currentPage: state.ideas.ideasList
+        ? Math.ceil(state.ideas.ideasList.length / perPage) : 0
+    }).then((data) => {
+      const ideas = data.data
+      dispatch(loadIdeasSuccess(ideas))
+      if (state.ideas.ideasList.length + ideas.length % perPage !== 0) {
+        dispatch(allPagesLoaded())
+      }
+    }, (err) => {
+      dispatch(loadIdeasError(err))
+    })
   }
 }
 
@@ -60,7 +70,7 @@ export const addVote = (id) => {
 
 export function loadAllIdeasRequest () {
   return {
-    type    : LOAD_ALL_IDEAS_REQUEST
+    type    : LOAD_IDEAS_REQUEST
   }
 }
 
@@ -74,6 +84,12 @@ export function loadIdeasSuccess (ideas) {
 export function loadIdeasError () {
   return {
     type    : LOAD_ALL_IDEAS_ERROR
+  }
+}
+
+export function allPagesLoaded () {
+  return {
+    type    : ALL_PAGES_LOADED
   }
 }
 
@@ -146,22 +162,26 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [LOAD_ALL_IDEAS_REQUEST] : (state, action) => { return { ...state, fetching: true } },
+  [LOAD_IDEAS_REQUEST] : (state, action) => { return { ...state, fetching: true } },
   [CREATE_IDEA_REQUEST] : (state, action) => { return { ...state, creating: true } },
   [LOAD_ALL_IDEAS_SUCCESS] : (state, action) => {
     return {
       ...state,
-      ideasList: action.ideas.map((idea) => {
-        idea.createdAt = new Date(idea.createdAt);
-        return idea
-      }),
+      ideasList: [
+        ...state.ideasList,
+        ...action.ideas.map((idea) => {
+          idea.createdAt = new Date(idea.createdAt)
+          return idea
+        })
+      ],
       fetching: false
     }
   },
   [LOAD_ALL_IDEAS_ERROR] : (state, action) => { return { ...state, fetching: false } },
+  [ALL_PAGES_LOADED] : (state, action) => { return { ...state, allPagesLoaded: true } },
   [CREATE_IDEA_SUCCESS] : (state, action) => {
-    let idea = action.idea;
-    idea.createdAt = new Date(idea.createdAt);
+    let idea = action.idea
+    idea.createdAt = new Date(idea.createdAt)
     return {
       ...state,
       ideasList: state.ideasList.concat(idea),
@@ -173,14 +193,8 @@ const ACTION_HANDLERS = {
   [CLOSE_ADD_IDEAS] : (state, action) => { return { ...state, isAddIdeaFormShown: false } },
   [SORT_IDEAS] : (state, action) => { return { ...state, sortBy: action.sortKey } },
   [ADD_VOTE_SUCCESS] : (state, action) => {
-    const ideaIndex = state.ideasList.findIndex((item) => item._id == action.ideaId);
-    let newIdeasList = state.ideasList;
-    newIdeasList[ideaIndex].votes += 1
-
-    return {
-      ...state,
-      ideaList: newIdeasList
-  }},
+    return state
+  },
   [ADD_VOTE_FAIL] : (state, action) => {
     return state
   }
@@ -189,7 +203,15 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = { isAddIdeaFormShown: false, fetching: false, creating: false, ideasList: [], sortBy: 'votes' }
+const initialState = {
+  perPage: 6,
+  isAddIdeaFormShown: false,
+  fetching: false,
+  creating: false,
+  ideasList: [],
+  allPagesLoaded: false,
+  sortBy: 'date'
+}
 export default function ideasReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

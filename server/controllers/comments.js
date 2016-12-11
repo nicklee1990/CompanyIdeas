@@ -3,7 +3,9 @@ const Comment = require('../models/Comment').model
 
 exports.getAll = (req, res) => {
   const ideaId = req.params.ideaId
-  Idea.findById(ideaId, 'comments').then((idea) => res.send({ data: idea.comments }))
+  Idea
+    .findById(ideaId, 'comments')
+    .then((idea) => res.send({ data: idea.comments }))
 }
 
 exports.create = (req, res) => {

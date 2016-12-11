@@ -1,19 +1,45 @@
-const express = require('express')
-const debug = require('debug')('app:server')
-const webpack = require('webpack')
-const webpackConfig = require('../build/webpack.config')
-const config = require('../config')
-const bodyParser = require('body-parser')
-const expressValidator = require('express-validator')
+const
+  express = require('express'),
+  debug = require('debug')('app:server'),
+  webpack = require('webpack'),
+  webpackConfig = require('../build/webpack.config'),
+  config = require('../config'),
+  bodyParser = require('body-parser'),
+  expressValidator = require('express-validator'),
+  User = require('./models/User').model,
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  session = require('express-session'),
+  dotenv = require('dotenv'),
+  MongoStore = require('connect-mongo')(session);
 
 const app = express()
 const paths = config.utils_paths
+dotenv.load({ path: '.env' });
+
 app.use(bodyParser.json())
 app.use(expressValidator())
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: process.env.SESSION_SECRET,
+  store: new MongoStore({
+    url: process.env.MONGO_HOST,
+    autoReconnect: true
+  })
+}));
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Load routes before setting the fallback for the frontend app
 const router = require('./routes')
 router(app)
+
+// Apply middleware for users
+// passport config
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement universal

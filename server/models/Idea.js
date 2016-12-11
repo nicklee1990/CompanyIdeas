@@ -1,12 +1,14 @@
-const mongoose = require('mongoose')
-const Comment = require('./Comment').schema
+const
+  mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  Comment = require('./Comment').schema
 
-const ideaSchema = new mongoose.Schema({
+const ideaSchema = new Schema({
   name: String,
   description: String,
   comments: [Comment],
   author: String,
-  votes : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vote' }]
+  votes : [{ type: Schema.Types.ObjectId, ref: 'Vote' }]
 }, { timestamps: true })
 
 module.exports = {

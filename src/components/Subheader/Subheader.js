@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import style from './Subheader.scss'
 
 export const Subheader = ({ text, size, alignment }) => (
-  <h5 style={{textAlign: alignment}} className={`${style.subheader} ${style[size]}`}>{text}</h5>
+  <h5 style={{ textAlign: alignment }} className={`${style.subheader} ${style[size]}`}>{text}</h5>
 )
 
 Subheader.propTypes = {

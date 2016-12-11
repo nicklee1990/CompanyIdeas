@@ -5,9 +5,10 @@ const error = require('debug')('app:error')
 const mongoose = require('mongoose')
 const chalk = require('chalk')
 const port = config.server_port
-const mongoHost = config.mongo_host
+const mongoHost = process.env.MONGO_HOST
 
 try {
+  mongoose.Promise = global.Promise
   mongoose.connect(mongoHost)
   mongoose.connection.on('error', () => {
     error(`Unable to connect to Mongo running at ${mongoHost} App will now exit ${chalk.red('✗')}`)

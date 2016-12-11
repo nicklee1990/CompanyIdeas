@@ -3,6 +3,7 @@ const path = require('path')
 const debug = require('debug')('app:config')
 const argv = require('yargs').argv
 const ip = require('ip')
+const auth = require('./auth')
 
 debug('Creating default configuration.')
 // ========================================================
@@ -80,7 +81,7 @@ Edit at Your Own Risk
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    'NODE_ENV' : JSON.stringify(config.env),
   },
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
