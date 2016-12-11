@@ -19,13 +19,17 @@ html
   body
     .mui-container-fluid
       .mui-row
-        .mui-col-md-6
+        .mui-col-lg-6
           .wrap.mui--text-center
-            include partials/flash
-            img.logo.img-responsive(src='http://herd.careers/wp-content/uploads/job-manager-uploads/company_logo/2016/11/Ten10_Logo_On_White-2.png')
-            block content
+            div
+              include partials/flash
+              img.logo.img-responsive(src='http://herd.careers/wp-content/uploads/job-manager-uploads/company_logo/2016/11/Ten10_Logo_On_White-2.png')
+              block content
           include partials/footer
-        .mui-col-md-6.mui--hidden-xs.mui--hidden-sm
+        .mui-col-lg-6.mui--hidden-xs.mui--hidden-sm.mui--hidden-md.mui--text-right
+          div.picture-credit
+            p.picture-title Sunset in the Islands
+            p.author Credit: Nick Lee
 
     script(src='//cdn.muicss.com/mui-0.9.6/js/mui.min.js')
 

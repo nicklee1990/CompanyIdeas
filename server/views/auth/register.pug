@@ -1,24 +1,20 @@
 extends ../layout
 
 block content
-  .page-header
-    h3 Sign up
-  form.form-horizontal(id='signup-form', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
-    .form-group
-      label.col-sm-3.control-label(for='password') Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', required)
-    .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-      .col-sm-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required)
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        button.btn.btn-success(type='submit')
-          i.fa.fa-user-plus
-          | Signup
+  div.mui-panel.auth-panel
+    legend Create Your Intranet Account
+    form(method='POST' id='signup-form')
+      input(type='hidden', name='_csrf', value=_csrf)
+      .mui-textfield
+        label(for='email') Email
+        input(type='email', name='email', id='email', placeholder='Email', autofocus, required)
+      .mui-textfield
+        label(for='password') Password
+        input(type='password', name='password', id='password', placeholder='Password', required)
+      .mui-textfield
+        label(for='password') Password
+        input(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required)
+      div
+        button.mui-btn.mui-btn--raised.mui-btn--primary.btn-full-width(type='submit') Signup
+      div
+        a.mui-btn(href='/login').btn-full-width Back to Login
